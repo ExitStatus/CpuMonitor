@@ -49,6 +49,7 @@ namespace CpuMonitor
 
 				coreControl.Top = y;
 				coreControl.Left = CpuMonitor.Properties.Settings.Default.BorderSize;
+				coreControl.Width = Width - (CpuMonitor.Properties.Settings.Default.BorderSize + _resizeGripRect.Width);
 
 				y += coreControl.Height;
 
@@ -74,6 +75,7 @@ namespace CpuMonitor
 			base.OnSizeChanged(e);
 
 			_resizeGripRect = new Rectangle(Width - 12, Height - 12, 11, 11);
+			_cpuCores.ForEach(z => z.Width = Width - (CpuMonitor.Properties.Settings.Default.BorderSize + _resizeGripRect.Width));
 		}
 
 		protected override void OnMouseDown(MouseEventArgs e)

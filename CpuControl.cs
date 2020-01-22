@@ -19,6 +19,7 @@ namespace CpuMonitor
 		private int _load = 0;
 		private string _label;
 		private Size _labelSize;
+		private Size _percentSize;
 		private readonly int _coreNum;
 
 		public CpuControl(int coreNum) : base()
@@ -36,6 +37,7 @@ namespace CpuMonitor
 
 			_label = $"Core {(_coreNum + 1):00}";
 			_labelSize = TextRenderer.MeasureText(_label, CpuMonitor.Properties.Settings.Default.DataFont);
+			_percentSize = TextRenderer.MeasureText("100%", CpuMonitor.Properties.Settings.Default.DataFont);
 
 			_core.OnCoreChanged += (number, load) =>
 			{
@@ -51,6 +53,8 @@ namespace CpuMonitor
 			_core.Shutdown();
 		}
 
+
+
 		protected override void OnPaintBackground(PaintEventArgs e)
 		{
 		}
@@ -59,9 +63,13 @@ namespace CpuMonitor
 		{
 			base.OnPaint(e);
 
-			e.Graphics.FillRectangle(_backgroundBrush, Bounds);
+			e.Graphics.FillRectangle(_backgroundBrush, 0,0,Width,Height);
 			e.Graphics.DrawString(_label, CpuMonitor.Properties.Settings.Default.DataFont, 
 				_foregroundBrush, 0, (Height / 2) - (CpuMonitor.Properties.Settings.Default.DataFont.Height / 2));
+
+			e.Graphics.DrawString($"{_load}%", CpuMonitor.Properties.Settings.Default.DataFont,
+				_foregroundBrush, Width - _percentSize.Width, (Height / 2) - (CpuMonitor.Properties.Settings.Default.DataFont.Height / 2));
+
 		}
 	}
 }
