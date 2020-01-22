@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CpuMonitor.Statistics;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,17 +15,44 @@ namespace CpuMonitor
 		public event EventHandler OnResizeMove;
 		public event EventHandler OnResizeEnd;
 
-		public Brush BackgroundColor { get; set; } = new SolidBrush(Color.Black);
+		private readonly Brush _backgroundBrush = new SolidBrush(CpuMonitor.Properties.Settings.Default.BackgroundColour);
 
 		private Rectangle _resizeGripRect;
 		private bool _resizeActive = false;
+		private readonly List<CpuControl> _cpuCores = new List<CpuControl>();
 
 
-		protected override void OnCreateControl()
+		public void Shutdown()
+		{
+			_cpuCores.ForEach(z => z.Shutdown());
+		}
+
+		protected override async void OnCreateControl()
 		{
 			base.OnCreateControl();
 
+			DoubleBuffered = true;
+
 			_resizeGripRect = new Rectangle(Width - 12, Height - 12, 11, 11);
+
+			int y = CpuMonitor.Properties.Settings.Default.BorderSize;
+
+
+			int nCores = await CpuCore.GetCpuCores();
+
+			for (int i = 0; i < nCores; i++)
+			{
+				var coreControl = new CpuControl(i);
+
+				_cpuCores.Add(coreControl);
+				Controls.Add(coreControl);
+
+				coreControl.Top = y;
+				coreControl.Left = CpuMonitor.Properties.Settings.Default.BorderSize;
+
+				y += coreControl.Height;
+
+			}
 		}
 
 		protected override void OnPaintBackground(PaintEventArgs e)
@@ -35,9 +63,9 @@ namespace CpuMonitor
 		{
 			base.OnPaint(e);
 
-			e.Graphics.FillRectangle(BackgroundColor, 0, 0, Width, Height);
+			e.Graphics.FillRectangle(_backgroundBrush, 0, 0, Width, Height);
 			ControlPaint.DrawBorder3D(e.Graphics, 0, 0, Width, Height, Border3DStyle.SunkenInner);
-			ControlPaint.DrawSizeGrip(e.Graphics, Color.Black, _resizeGripRect);
+			ControlPaint.DrawSizeGrip(e.Graphics, CpuMonitor.Properties.Settings.Default.BackgroundColour, _resizeGripRect);
 
 		}
 

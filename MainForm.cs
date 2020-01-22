@@ -1,9 +1,11 @@
-﻿using System;
+﻿using CpuMonitor.Statistics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,8 +14,6 @@ namespace CpuMonitor
 {
 	public partial class MainForm : Form
 	{
-
-
 		public MainForm()
 		{
 			InitializeComponent();
@@ -32,6 +32,11 @@ namespace CpuMonitor
 			DataControl.OnResizeStart += (sender, args) => DragResizeStart();
 			DataControl.OnResizeMove += (sender, args) => DragResizeMove();
 			DataControl.OnResizeEnd += (sender, args) => DragResizeEnd();
+		}
+
+		public void Shutdown()
+		{
+			DataControl.Shutdown();
 		}
 
 		protected override void OnSizeChanged(EventArgs e)

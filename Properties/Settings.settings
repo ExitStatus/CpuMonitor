@@ -5,5 +5,17 @@
     <Setting Name="BorderSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4</Value>
     </Setting>
+    <Setting Name="UpdateFrequency" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="BackgroundColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+    <Setting Name="DataFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Arial Narrow, 7.875pt</Value>
+    </Setting>
+    <Setting Name="ForegroundColour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

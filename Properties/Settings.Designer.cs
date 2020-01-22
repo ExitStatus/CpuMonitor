@@ -34,5 +34,53 @@ namespace CpuMonitor.Properties {
                 this["BorderSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int UpdateFrequency {
+            get {
+                return ((int)(this["UpdateFrequency"]));
+            }
+            set {
+                this["UpdateFrequency"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color BackgroundColour {
+            get {
+                return ((global::System.Drawing.Color)(this["BackgroundColour"]));
+            }
+            set {
+                this["BackgroundColour"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Arial Narrow, 7.875pt")]
+        public global::System.Drawing.Font DataFont {
+            get {
+                return ((global::System.Drawing.Font)(this["DataFont"]));
+            }
+            set {
+                this["DataFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color ForegroundColour {
+            get {
+                return ((global::System.Drawing.Color)(this["ForegroundColour"]));
+            }
+            set {
+                this["ForegroundColour"] = value;
+            }
+        }
     }
 }
