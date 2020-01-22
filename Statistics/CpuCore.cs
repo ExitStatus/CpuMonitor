@@ -35,7 +35,7 @@ namespace CpuMonitor.Statistics
 		}
 
 		private int _load = 0;
-
+		private readonly Queue<int> _loadValues = new Queue<int>();
 		private readonly Thread _processThread;
 
 		public CpuCore(int core)
@@ -70,7 +70,12 @@ namespace CpuMonitor.Statistics
 
 					try
 					{
-						Load = (int)perf.NextValue();
+						int nextLoad = (int)perf.NextValue();
+						_loadValues.Enqueue(nextLoad);
+						if (_loadValues.Count > 3)
+							_loadValues.Dequeue();
+						
+						Load = (_loadValues.Sum(z => z) / _loadValues.Count);
 
 						Thread.Sleep(Properties.Settings.Default.UpdateFrequency);
 					}

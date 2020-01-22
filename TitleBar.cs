@@ -25,13 +25,14 @@ namespace CpuMonitor
 		{
 			base.OnPaint(e);
 
-			LinearGradientBrush linGrBrush = new LinearGradientBrush(
-				new Point(0, 0),
-				new Point(Width, 0),
+			using (LinearGradientBrush linGrBrush = new LinearGradientBrush(
+				new Point(0, 0), new Point(Width, 0),
 				Color.FromArgb(255, 128, 0, 0),   // Opaque red
-				Color.FromArgb(255, 0, 0, 0));  // Opaque blue
+				Color.FromArgb(255, 0, 0, 0)))
+			{
+				e.Graphics.FillRectangle(linGrBrush, 0, 0, Width, Height);
+			};
 
-			e.Graphics.FillRectangle(linGrBrush, 0, 0, Width, Height);
 			ControlPaint.DrawBorder3D(e.Graphics, 0, 0, Width, Height, Border3DStyle.SunkenInner);
 
 			e.Graphics.DrawString(Title, TitleFont, TitleColor, 4, (Height / 2) - (TitleFont.Height / 2));
