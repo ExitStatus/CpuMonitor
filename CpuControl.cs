@@ -40,7 +40,7 @@ namespace CpuMonitor
 
 			_label = $"Core {(_coreNum + 1):00}";
 			_labelSize = TextRenderer.MeasureText(_label, CpuMonitor.Properties.Settings.Default.DataFont);
-			_percentSize = TextRenderer.MeasureText("100%", CpuMonitor.Properties.Settings.Default.DataFont);
+			_percentSize = TextRenderer.MeasureText("99%", CpuMonitor.Properties.Settings.Default.DataFont);
 
 			_core.OnCoreChanged += (number, load) =>
 			{
@@ -72,8 +72,12 @@ namespace CpuMonitor
 
 			int rhs = Width - _percentSize.Width;
 
-			e.Graphics.DrawString($"{_load}%", CpuMonitor.Properties.Settings.Default.DataFont,
-				_foregroundBrush, rhs, (Height / 2) - (CpuMonitor.Properties.Settings.Default.DataFont.Height / 2));
+			if (_load == 100)
+				e.Graphics.DrawString("MAX", CpuMonitor.Properties.Settings.Default.DataFont,
+					_foregroundBrush, rhs, (Height / 2) - (CpuMonitor.Properties.Settings.Default.DataFont.Height / 2));
+			else
+				e.Graphics.DrawString($"{_load}%", CpuMonitor.Properties.Settings.Default.DataFont,
+					_foregroundBrush, rhs, (Height / 2) - (CpuMonitor.Properties.Settings.Default.DataFont.Height / 2));
 
 			int barWidth = rhs - (_labelSize.Width + 8);
 			int loadWidth = (int)((_load / 100.0f) * barWidth);
