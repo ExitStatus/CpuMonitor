@@ -29,6 +29,7 @@ namespace CpuMonitor
 			DataControl.Height = Height - (DataControl.Top + Properties.Settings.Default.BorderSize);
 
 			TitleControl.OnWindowDrag += (sender, args) => DragWindow();
+			TitleControl.OnCloseRequested += (sender, args) => CloseApp();
 			DataControl.OnResizeStart += (sender, args) => DragResizeStart();
 			DataControl.OnResizeMove += (sender, args) => DragResizeMove();
 			DataControl.OnResizeEnd += (sender, args) => DragResizeEnd();
@@ -48,7 +49,10 @@ namespace CpuMonitor
 			DataControl.Height = Height - (DataControl.Top + Properties.Settings.Default.BorderSize);
 		}
 
-
+		private void CloseApp()
+		{
+			Application.Exit();
+		}
 
 		#region Handle Window Dragging
 

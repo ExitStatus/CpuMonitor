@@ -89,6 +89,8 @@ namespace CpuMonitor.Statistics
 						ErrorMessage = ex.Message;
 					}
 				}
+
+				perf.Dispose();
 			}
 			catch (ThreadAbortException)
 			{

@@ -17,7 +17,10 @@ namespace CpuMonitor
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			Application.Run(new MainForm());
+			MainForm frm = new MainForm();
+			Application.Run(frm);
+
+			frm.Shutdown();
 		}
 	}
 }
